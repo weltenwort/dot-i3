@@ -127,8 +127,6 @@ bindsym $mod+Ctrl+Shift+l move workspace to output right
 bindsym $mod+Ctrl+Shift+k move workspace to output up
 bindsym $mod+Ctrl+Shift+j move workspace to output down
 
-bindsym $mod+Shift+a exec "keepass --auto-type"
-
 bindsym $mod+Shift+f exec "~/scripts/dmenfm"
 
 set $MODE_SYSTEM "(c) reload, (r) restart, (p) poweroff, (e) exit, (l) lock"
