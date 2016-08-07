@@ -1,0 +1,28 @@
+#include ".config/base16-xresources/xresources/base16-default-dark-256.Xresources"
+
+rofi.color-enabled: true
+rofi.color-window: #1d1f21, #81a2be, #81a2be
+rofi.color-normal: #1d1f21, #ffffff, #1d1f21, #81a2be, #1d1f21
+rofi.color-active: #1d1f21, #b5bd68, #1d1f21, #b5bd68, #1d1f21
+rofi.color-urgent: #1d1f21, #cc6666, #1d1f21, #cc6666, #1d1f21
+rofi.terminal: urxvt
+rofi.font: Inconsolata for Powerline 12
+
+URxvt.scrollBar: false
+URxvt.secondaryScreen: true
+URxvt.secondaryScroll: true
+URxvt*scrollTtyOutput: false
+URxvt*scrollTtyKeypress: true
+URxvt*saveLines: 10000
+URxvt.font: xft:Inconsolata for Powerline:antialias=true:hinting=true:size=12
+URxvt.perl-ext-common: font-size
+URxvt.keysym.C-plus: font-size:increase
+URxvt.keysym.C-minus: font-size:decrease
+URxvt.keysym.C-0: font-size:reset
+
+Xft.antialias:            true
+Xft.autohint:             0
+Xft.hinting:              1
+Xft.hintstyle:            hintfull
+Xft.lcdfilter:            lcddefault
+Xft.rgba:                 rgb
