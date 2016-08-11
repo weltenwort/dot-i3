@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import platform
+
 from i3pystatus import Status
 from i3pystatus.core.command import run_through_shell
 import netifaces
@@ -16,6 +18,11 @@ colors = {
     "violet": "#b294bb",
     "yellow": "#f0c674",
 }
+thermal_zones = {
+    'loki': '/sys/class/thermal/thermal_zone2/temp',
+}
+
+node_name = platform.node()
 
 status = Status(standalone=True)
 
@@ -85,6 +92,7 @@ status.register("network",
 
 status.register("temp",
     format=" {temp}°C ",
+    file=thermal_zones.get(node_name, '/sys/class/thermal/thermal_zone0/temp'),
     color=colors["green"],
     alert_color=colors["red"],
     alert_temp=85,
