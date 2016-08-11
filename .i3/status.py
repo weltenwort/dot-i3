@@ -21,6 +21,9 @@ colors = {
 thermal_zones = {
     'loki': '/sys/class/thermal/thermal_zone2/temp',
 }
+audio_sources = [
+    ("Revo", "alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono"),
+]
 
 node_name = platform.node()
 
@@ -31,6 +34,18 @@ status.register("clock",
     format=" %Y-%m-%d %H:%M:%S",
     color=colors["bright"],
     )
+
+for (source_label, source_name) in audio_sources:
+    status.register("shell",
+        command="""pacmd dump | grep -c "set-source-mute {source_name} no" """.format(source_name=source_name),
+        on_leftclick=lambda mod: run_through_shell(["pacmd", "set-source-mute", source_name, "true"]),
+        on_rightclick=lambda mod: run_through_shell(["pacmd", "set-source-mute", source_name, "false"]),
+        interval=10,
+        color=colors["bright"],
+        error_color=colors["red"],
+        format="{source_label}".format(source_label=source_label),
+        )
+
 
 status.register("weather",
     format=" {current_temp} ({min_temp}, {max_temp})",
