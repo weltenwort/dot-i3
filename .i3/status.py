@@ -27,8 +27,10 @@ audio_sources = [
 
 node_name = platform.node()
 
-status = Status(standalone=True)
-
+status = Status(
+    logfile='/home/laeroth/i3pystatus.log',
+    standalone=True,
+)
 
 status.register("clock",
     format=" %Y-%m-%d %H:%M:%S",
@@ -38,8 +40,8 @@ status.register("clock",
 for (source_label, source_name) in audio_sources:
     status.register("shell",
         command="""pacmd dump | grep -c "set-source-mute {source_name} no" """.format(source_name=source_name),
-        on_leftclick=lambda mod: run_through_shell(["pacmd", "set-source-mute", source_name, "true"]),
-        on_rightclick=lambda mod: run_through_shell(["pacmd", "set-source-mute", source_name, "false"]),
+        on_leftclick="pacmd set-source-mute {source_name} true".format(source_name=source_name),
+        on_rightclick="pacmd set-source-mute {source_name} false".format(source_name=source_name),
         interval=10,
         color=colors["bright"],
         error_color=colors["red"],
@@ -77,8 +79,6 @@ status.register("backlight",
     format=" {percentage}%",
     color=colors["bright"],
     backlight="intel_backlight",
-    on_upscroll=lambda mod: run_through_shell(["xbacklight", "+10"]),
-    on_downscroll=lambda mod: run_through_shell(["xbacklight", "-10"]),
     )
 
 status.register("shell",
