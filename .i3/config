@@ -129,6 +129,9 @@ bindsym $mod+Ctrl+Shift+j move workspace to output down
 
 bindsym $mod+Shift+f exec "~/scripts/dmenfm"
 
+bindsym $mod+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono true"
+bindsym $mod+Shift+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono false"
+
 set $MODE_SYSTEM "(c) reload, (r) restart, (p) poweroff, (e) exit, (l) lock"
 
 mode $MODE_SYSTEM {
