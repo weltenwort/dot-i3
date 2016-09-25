@@ -201,6 +201,7 @@ bar {
     #status_command ~/.i3/conky
     status_command ~/.virtualenvs/i3pystatus/bin/python ~/.i3/status.py
     tray_output LVDS1
+    tray_output eDP1
     position top
     output LVDS1
     output eDP1
