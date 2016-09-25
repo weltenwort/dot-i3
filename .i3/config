@@ -234,7 +234,7 @@ assign [class="Thunderbird" instance="Mail"] 9
 assign [title="^(?:Google )?Hangouts"] 0
 
 #exec --no-startup-id "xmodmap ~/.Xmodmap"
-exec ~/scripts/xrandr_setup
+#exec ~/scripts/xrandr_setup
 exec nm-applet
 exec pasystray
 exec redshift-gtk
