@@ -235,7 +235,7 @@ hide_edge_borders both
 
 # assign windows
 assign [class="Thunderbird" instance="Mail"] 9
-assign [title="^(?:Google )?Hangouts"] 0
+assign [title="^Rambox$"] 0
 
 #exec --no-startup-id "xmodmap ~/.Xmodmap"
 #exec ~/scripts/xrandr_setup
