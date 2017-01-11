@@ -4,6 +4,7 @@ import platform
 
 from i3pystatus import Status
 from i3pystatus.core.command import run_through_shell
+from i3pystatus.weather import weathercom
 import netifaces
 
 colors = {
@@ -50,9 +51,11 @@ for (source_label, source_name) in audio_sources:
 
 
 status.register("weather",
-    format=" {current_temp} ({min_temp}, {max_temp})",
-    location_code="GMXX0007",
+    format="{icon} {current_temp}{temp_unit} ({low_temp}{temp_unit}, {high_temp}{temp_unit})",
     colorize=True,
+    backend=weathercom.Weathercom(
+        location_code="GMXX0007",
+        ),
     )
 
 status.register("battery",
@@ -120,7 +123,7 @@ status.register("cpu_usage_graph",
     )
 
 status.register("cpu_usage",
-    format=" {format_all}",
+    format=" {usage_all}",
     format_all="{usage:02}%",
     exclude_average=True,
     )
