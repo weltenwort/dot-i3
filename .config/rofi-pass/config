@@ -1,0 +1,5 @@
+USERNAME_field='UserName'
+EDITOR='gvim -f'
+BROWSER='chromium'
+
+help_color='#6a9fb5'
