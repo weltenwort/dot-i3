@@ -31,7 +31,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+space exec rofi -show run
+bindsym $mod+space exec rofi -show drun
 bindsym $mod+y exec rofi-pass
 bindsym $mod+x exec i3-dmenu-desktop --dmenu 'rofi -dmenu'
 bindsym $mod+dead_circumflex exec rofi -show window
@@ -132,7 +132,7 @@ bindsym $mod+Shift+f exec "~/scripts/dmenfm"
 bindsym $mod+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono true"
 bindsym $mod+Shift+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono false"
 
-set $MODE_SYSTEM "(c) reload, (r) restart, (p) poweroff, (e) exit, (l) lock"
+set $MODE_SYSTEM "(c) reload, (r) restart, (p) poweroff, (P) reboot, (e) exit, (l) lock"
 
 mode $MODE_SYSTEM {
     # reload the configuration file
@@ -141,6 +141,7 @@ mode $MODE_SYSTEM {
     bindsym r restart; mode "default"
     bindsym l exec "i3lock -c 000000"; mode "default"
     bindsym p exec "systemctl poweroff"; mode "default"
+    bindsym Shift+p exec "systemctl reboot"; mode "default"
     # exit i3 (logs you out of your X session)
     bindsym e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
 
@@ -197,11 +198,11 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    #status_command i3status
+    # status_command i3status
     #status_command ~/.i3/conky
-    status_command ~/.virtualenvs/i3pystatus/bin/python ~/.i3/status.py
-    tray_output LVDS1
-    tray_output eDP1
+    # status_command ~/.virtualenvs/i3pystatus/bin/python ~/.i3/status.py
+    status_command python ~/.i3/status.py
+    tray_output primary
     position top
     output LVDS1
     output eDP1
@@ -212,7 +213,7 @@ bar {
     output HDMI2
     output VIRTUAL1
 
-    font pango:Fira Code 10
+    font pango:Fira Code 9
     colors {
         separator #1d1f21
         background #1d1f21
@@ -228,6 +229,10 @@ workspace_layout tabbed
 workspace_auto_back_and_forth yes
 workspace 0 output LVDS1
 
+gaps inner 5
+gaps outer 0
+smart_borders on
+
 hide_edge_borders both
 
 # load layouts
@@ -235,14 +240,15 @@ hide_edge_borders both
 
 # assign windows
 assign [class="Thunderbird" instance="Mail"] 9
+assign [class="Evolution"] 9
 assign [title="^Rambox"] 0
 
-#exec --no-startup-id "xmodmap ~/.Xmodmap"
 #exec ~/scripts/xrandr_setup
 exec nm-applet
 exec pasystray
 exec redshift-gtk
 
+for_window [class="^.*"] border pixel 1
 for_window [title="^Scratch: "] move scratchpad, focus
 for_window [title="Robot Framework"] floating enable
 for_window [title="TeamViewer Panel"] sticky enable

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+readonly xrandr_status="$(xrandr)"
+
+has_output() {
+  echo "${xrandr_status}" | grep -q "^${1} connected"
+}
+
+if (has_output eDP1) && (has_output HDMI1); then
+  xrandr \
+    --output "eDP1" \
+      --primary \
+      --mode "2560x1440" \
+    --output "HDMI1" \
+      --mode "2560x1440" \
+      --right-of "eDP1" \
+  --dpi 96
+  i3-msg "restart" || true
+else
+  exit 1
+fi
