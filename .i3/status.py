@@ -181,13 +181,13 @@ status.register("mem",
     warn_color=colors["yellow"],
 )
 
-status.register("window_title",
-    always_show=True,
-    hints=create_hints(
-        align="left",
-        min_width="m"*79,
-    ),
-)
+# status.register("window_title",
+#     always_show=True,
+#     hints=create_hints(
+#         align="left",
+#         min_width="m"*79,
+#     ),
+# )
 
 
 status.run()
