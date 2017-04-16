@@ -57,17 +57,17 @@ status.register("clock",
     hints=create_hints(),
 )
 
-for (source_label, source_name) in audio_sources:
-    status.register("shell",
-        color=colors["bright"],
-        command="""pacmd dump | grep -c "set-source-mute {source_name} no" """.format(source_name=source_name),
-        error_color=colors["red"],
-        format="{source_label}".format(source_label=source_label),
-        hints=create_hints(),
-        interval=10,
-        on_leftclick="pacmd set-source-mute {source_name} true".format(source_name=source_name),
-        on_rightclick="pacmd set-source-mute {source_name} false".format(source_name=source_name),
-    )
+# for (source_label, source_name) in audio_sources:
+#     status.register("shell",
+#         color=colors["bright"],
+#         command="""pacmd dump | grep -c "set-source-mute {source_name} no" """.format(source_name=source_name),
+#         error_color=colors["red"],
+#         format="{source_label}".format(source_label=source_label),
+#         hints=create_hints(),
+#         interval=10,
+#         on_leftclick="pacmd set-source-mute {source_name} true".format(source_name=source_name),
+#         on_rightclick="pacmd set-source-mute {source_name} false".format(source_name=source_name),
+#     )
 
 
 status.register("weather",
@@ -125,6 +125,16 @@ status.register("backlight",
     hints=create_hints(),
 )
 
+status.register("pulseaudio",
+    color_muted=colors["red"],
+    color_unmuted=colors["green"],
+    format=" {volume}",
+    hints=create_hints(),
+    on_leftclick="switch_mute",
+    on_rightclick="change_sink",
+    on_doubleleftclick="pavucontrol",
+)
+
 status.register("shell",
     color=colors["bright"],
     command="""echo " $(gpg-connect-agent 'keyinfo --list' '/bye' | grep -e '^S KEYINFO .* 1 P ' -c)" """,
@@ -180,6 +190,20 @@ status.register("mem",
     hints=create_hints(),
     warn_color=colors["yellow"],
 )
+
+# status.register("shell",
+#     color=colors["bright"],
+#     command="""echo " $(timew get dom.active.tag.1 dom.active.duration || true)" """,
+#     hints=create_hints(),
+#     interval=10,
+#     # on_leftclick=lambda mod: run_through_shell(["killall", "-s", "HUP", "gpg-agent"]),
+# )
+
+# status.register("timewarrior",
+#     color_running=colors["orange"],
+#     color_stopped=colors["dark"],
+#     hints=create_hints(),
+# )
 
 # status.register("window_title",
 #     always_show=True,
