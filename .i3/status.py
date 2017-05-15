@@ -5,7 +5,7 @@ import platform
 from i3pystatus import Status
 from i3pystatus.core.command import run_through_shell
 from i3pystatus.weather import weathercom
-import netifaces
+# import netifaces
 
 colors = {
     "blue": "#81a2be",
@@ -36,6 +36,9 @@ thermal_zones = {
 cpu_cores = {
     'loki': 4,
     'tyr': 8,
+}
+network_interface = {
+    'tyr': 'wlp2s0',
 }
 audio_sources = [
     # ("Revo", "alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono"),
@@ -143,12 +146,12 @@ status.register("shell",
     on_leftclick=lambda mod: run_through_shell(["killall", "-s", "HUP", "gpg-agent"]),
 )
 
-default_family = netifaces.AF_INET
-default_gateways = netifaces.gateways().get("default", {})
-if default_family in default_gateways:
-    default_interface = default_gateways[default_family][1]
-else:
-    default_interface = "lo"
+# default_family = netifaces.AF_INET
+# default_gateways = netifaces.gateways().get("default", {})
+# if default_family in default_gateways:
+#     default_interface = default_gateways[default_family][1]
+# else:
+#     default_interface = "lo"
 
 status.register("network",
     color_down=colors["red"],
@@ -159,7 +162,7 @@ status.register("network",
     format_up=" {interface} {bytes_recv:05.3f}MB/s {bytes_sent:05.3f}MB/s",
     graph_style="braille-snake",
     hints=create_hints(),
-    interface=default_interface,
+    interface=network_interface.get(node_name, 'lo'),
     recv_limit=50*1024,
     round_size=3,
     sent_limit=10*1024,
