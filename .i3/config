@@ -33,7 +33,8 @@ bindsym $mod+Shift+q kill
 # start rofi (a program launcher)
 bindsym $mod+space exec rofi -show drun
 bindsym $mod+y exec rofi-pass
-bindsym $mod+x exec i3-dmenu-desktop --dmenu 'rofi -dmenu'
+bindsym $mod+x exec rofi -show run
+bindsym $mod+c exec teiler
 bindsym $mod+dead_circumflex exec rofi -show window
 
 # change focus
@@ -126,8 +127,6 @@ bindsym $mod+Ctrl+Shift+h move workspace to output left
 bindsym $mod+Ctrl+Shift+l move workspace to output right
 bindsym $mod+Ctrl+Shift+k move workspace to output up
 bindsym $mod+Ctrl+Shift+j move workspace to output down
-
-bindsym $mod+Shift+f exec "~/scripts/dmenfm"
 
 bindsym $mod+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono true"
 bindsym $mod+Shift+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_v4.0.0_1C48F9008D3F040000-00.analog-mono false"
@@ -229,8 +228,9 @@ workspace_layout tabbed
 workspace_auto_back_and_forth yes
 workspace 0 output LVDS1
 
-gaps inner 5
+gaps inner 5 
 gaps outer 0
+smart_gaps on
 smart_borders on
 
 hide_edge_borders both
@@ -248,7 +248,7 @@ exec nm-applet
 exec pasystray
 exec redshift-gtk
 
-for_window [class="^.*"] border pixel 1
+# for_window [class="^.*"] border pixel 1
 for_window [title="^Scratch: "] move scratchpad, focus
 for_window [title="Robot Framework"] floating enable
 for_window [title="TeamViewer Panel"] sticky enable
