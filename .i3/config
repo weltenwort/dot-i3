@@ -18,7 +18,7 @@ set $mod Mod4
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose an xft font, such as:
-font xft:Fira Code 10
+font pango:Fira Code 10
 #font xft:Monospace 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -212,7 +212,7 @@ bar {
     output HDMI2
     output VIRTUAL1
 
-    font pango:Fira Code 9
+    font pango:Fira Code, FontAwesome 10
     colors {
         separator #1d1f21
         background #1d1f21
