@@ -9,14 +9,40 @@ has_output() {
   echo "${xrandr_status}" | grep -q "^${1} connected"
 }
 
-if (has_output eDP1) && (has_output HDMI1); then
+setup_one_screen() {
   xrandr \
-    --output "eDP1" \
+    --output "$1" \
       --primary \
       --mode "2560x1440" \
-    --output "HDMI1" \
+    --dpi 96
+}
+
+setup_two_screens() {
+  xrandr \
+    --output "$1" \
+      --primary \
       --mode "2560x1440" \
-      --right-of "eDP1" \
-  --dpi 96
+    --output "$2" \
+      --mode "2560x1440" \
+      --right-of "$1" \
+    --dpi 96
+}
+
+restart_wm() {
   i3-msg "restart" || true
-fi
+}
+
+main() {
+  if (has_output eDP1) && (has_output HDMI1); then
+    setup_two_screens "eDP1" "HDMI1"
+    restart_wm
+  elif (has_output eDP1) && (has_output DP1-2); then
+    setup_two_screens "eDP1" "DP1-2"
+    restart_wm
+  else
+    setup_one_screen "eDP1"
+    restart_wm
+  fi
+}
+
+main
