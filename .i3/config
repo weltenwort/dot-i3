@@ -134,17 +134,23 @@ bindsym $mod+Shift+m exec "pacmd set-source-mute alsa_input.usb-0b0e_Jabra_REVO_
 set $MODE_SYSTEM "(c) reload, (r) restart, (p) poweroff, (P) reboot, (e) exit, (l) lock"
 
 mode $MODE_SYSTEM {
-    # reload the configuration file
     bindsym c reload; mode "default"
-    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
     bindsym r restart; mode "default"
     bindsym l exec "i3lock -c 000000"; mode "default"
     bindsym p exec "systemctl poweroff"; mode "default"
     bindsym Shift+p exec "systemctl reboot"; mode "default"
-    # exit i3 (logs you out of your X session)
-    bindsym e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
+    bindsym e mode $MODE_EXIT
 
-    # back to normal: Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+set $MODE_EXIT "(y) yes, (n) no"
+
+mode $MODE_EXIT {
+    bindsym y exit
+
+    bindsym n mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -155,47 +161,52 @@ mode "network" {
     bindsym u exec "scripts/rofi_nmcli bring_up"; mode "default"
     bindsym d exec "scripts/rofi_nmcli bring_down"; mode "default"
 
-    # back to normal: Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
 bindsym $mod+Shift+n mode "network"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+set $MODE_DISPLAY "(1) 10%, (2) 30%, (3) 60%, (d|D) DPMS off|on"
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+mode $MODE_DISPLAY {
+    bindsym 1 exec "xbacklight '=10%'"; mode "default"
+    bindsym 2 exec "xbacklight '=30%'"; mode "default"
+    bindsym 3 exec "xbacklight '=60%'"; mode "default"
+    bindsym d exec "xset s off -dpms"; mode "default"
+    bindsym Shift+d exec "xset s on +dpms"; mode "default"
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        bindsym 1 resize set 400 px 600 px
-        bindsym 2 resize set 1030 px 700 px
-        bindsym 3 resize set 1800 px 1000 px
-
-        bindsym c move position center
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+d mode $MODE_DISPLAY
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+set $MODE_RESIZE "(j|k) grow|shrink height, (h|l) grow|shrink width, (c) center, (1|2|3) set predefined sizes"
+
+mode $MODE_RESIZE {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym 1 resize set 400 px 600 px
+    bindsym 2 resize set 1024 px 768 px
+    bindsym 3 resize set 1920 px 1080 px
+
+    bindsym c move position center
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+r mode $MODE_RESIZE
+
 bar {
     # status_command i3status
     #status_command ~/.i3/conky
@@ -206,6 +217,9 @@ bar {
     output LVDS1
     output eDP1
     output DP1
+    output DP1-1
+    output DP1-2
+    output DP1-3
     output DP2
     output VGA1
     output HDMI1
