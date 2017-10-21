@@ -31,7 +31,7 @@ default_hints = {
 }
 thermal_zones = {
     'loki': '/sys/class/thermal/thermal_zone2/temp',
-    'tyr': '/sys/class/thermal/thermal_zone8/temp',
+    'tyr': '/sys/class/thermal/thermal_zone7/temp',
 }
 cpu_cores = {
     'loki': 4,

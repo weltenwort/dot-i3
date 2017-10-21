@@ -7,6 +7,7 @@ rofi.color-active: #1d1f21, #b5bd68, #1d1f21, #b5bd68, #1d1f21
 rofi.color-urgent: #1d1f21, #cc6666, #1d1f21, #cc6666, #1d1f21
 rofi.terminal: urxvt
 rofi.font: Fira Code 12
+rofi.show-icons: true
 
 URxvt.scrollBar: false
 URxvt.secondaryScreen: true
