@@ -40,7 +40,10 @@ bindsym $mod+Shift+s exec gnome-screenshot -w -i -d 1
 
 # scratchpad windows
 bindsym $mod+Shift+Return exec --no-startup-id "xdotool search --classname 'Scratch: terminal' || urxvt -name 'Scratch: terminal'"; [instance="^Scratch: terminal$"] scratchpad show
+bindsym $mod+Tab exec --no-startup-id "xdotool search --classname 'Scratch: terminal' || urxvt -name 'Scratch: terminal'"; [instance="^Scratch: terminal$"] scratchpad show
 for_window [instance="^Scratch: terminal$"] floating enable, resize set 2514 1344, move position center
+bindsym $mod+Escape exec --no-startup-id "xdotool search --classname 'rambox' || rambox"; [instance="^rambox$"] scratchpad show
+for_window [instance="^rambox$"] floating enable, resize set 2514 1344, move position center
 
 # change focus
 bindsym $mod+j focus down
@@ -88,7 +91,7 @@ bindsym $mod+t focus mode_toggle
 
 # move window to scratchpad
 bindsym $mod+Shift+Tab move scratchpad
-bindsym $mod+Tab scratchpad show
+bindsym $mod+Ctrl+Tab scratchpad show
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -288,7 +291,7 @@ hide_edge_borders both
 # assign windows
 assign [class="Thunderbird" instance="Mail"] 9
 assign [class="Evolution"] 9
-assign [title="^Rambox"] 0
+# assign [title="^Rambox"] 0
 
 #exec ~/scripts/xrandr_setup
 exec nm-applet
@@ -298,6 +301,7 @@ exec --no-startup-id "compton -b"
 
 # for_window [class="^.*"] border pixel 1
 for_window [title="^Scratch: "] move scratchpad, focus
+for_window [instance="^rambox$"] move scratchpad, focus
 for_window [title="Robot Framework"] floating enable
 for_window [title="TeamViewer Panel"] sticky enable
 for_window [title="^(?:Google )?Hangouts"] floating disable
