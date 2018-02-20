@@ -18,7 +18,7 @@ set $mod Mod4
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose an xft font, such as:
-font pango:Fira Code 10
+font pango:SauceCodePro Nerd Font Mono Medium 14px
 #font xft:Monospace 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -37,6 +37,8 @@ bindsym $mod+x exec rofi -show run
 bindsym $mod+c exec teiler
 bindsym $mod+dead_circumflex exec rofi -show window
 bindsym $mod+Shift+s exec gnome-screenshot -w -i -d 1
+bindsym $mod+Shift+w exec --no-startup-id "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+bindsym $mod+Shift+f exec --no-startup-id "maim | xclip -selection clipboard -t image/png"
 
 # scratchpad windows
 bindsym $mod+Shift+Return exec --no-startup-id "xdotool search --classname 'Scratch: terminal' || urxvt -name 'Scratch: terminal'"; [instance="^Scratch: terminal$"] scratchpad show
@@ -262,7 +264,7 @@ bar {
     output HDMI2
     output VIRTUAL1
 
-    font pango:Fira Code, FontAwesome 10
+    font pango:SauceCodePro Nerd Font Mono Medium 14px
     colors {
         separator #1d1f21
         background #1d1f21
@@ -298,6 +300,7 @@ exec nm-applet
 exec pasystray
 exec redshift-gtk
 exec --no-startup-id "compton -b"
+exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 # for_window [class="^.*"] border pixel 1
 for_window [title="^Scratch: "] move scratchpad, focus
